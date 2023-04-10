@@ -2,7 +2,7 @@ import { spawn } from 'child_process';
 
 const getVolumes = (input: string) => {
 	const params = ['-i', input, '-filter_complex', 'ebur128', '-f', 'null', '-'];
-	const regex = /(?<=I: )-?\d+(\.\d+)?/g;
+	const regex = /(?<=M: )-?\d+(\.\d+)?/g;
 	return new Promise<number[]>((resolve, reject) => {
 		const process = spawn('ffmpeg', params);
 		const volumes: number[] = [];
