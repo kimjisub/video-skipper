@@ -9,10 +9,12 @@ const getVolumes = (input: string) => {
 		let logs = '';
 
 		process.stdout.on('data', (data) => {
+			console.log(`ffmpeg: ${data}`);
 			logs += `${data}\n`;
 		});
 
 		process.stderr.on('data', (data) => {
+			// console.log(`ffmpeg: ${data}`);
 			logs += `${data}\n`;
 			const input = `${data}`;
 			const dbString = input.match(regex)?.[0];
@@ -21,7 +23,7 @@ const getVolumes = (input: string) => {
 		});
 
 		process.on('close', (code) => {
-			//console.log(`child process exited with code ${code}`);
+			console.log(`ffmpeg: exited with code ${code}`);
 			if (code == 0) resolve(volumes);
 			else reject(logs);
 		});
