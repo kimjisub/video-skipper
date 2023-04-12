@@ -27,7 +27,7 @@ jobs:
         run: yarn build
 
       - name: Publish to NPM
-        run: yarn publish --verbose --access
+        run: echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc && yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
           YARN_REGISTRY: 'https://registry.npmjs.org'
