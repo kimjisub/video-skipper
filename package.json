@@ -1,12 +1,16 @@
 {
 	"name": "video-smart-skipper",
 	"version": "1.0.0",
-	"main": "./src/index.ts",
+	"main": "dist/index.js",
 	"repository": "https://github.com/kimjisub/video-smart-skipper.git",
 	"author": "kimjisub <0226daniel@gmail.com>",
 	"license": "Apache",
 	"scripts": {
-		"start": "ts-node ./src/index.ts"
+		"start": "ts-node ./src/index.ts",
+		"build": "tsc"
+	},
+	"bin": {
+		"vss": "./dist/index.js"
 	},
 	"dependencies": {
 		"@nestjs/common": "^8.0.0",
@@ -26,6 +30,7 @@
 		"@types/node": "^16.3.0",
 		"@typescript-eslint/eslint-plugin": "^5.57.1",
 		"@typescript-eslint/parser": "^5.57.1",
+		"@vercel/ncc": "^0.36.1",
 		"eslint": "^8.26.0",
 		"eslint-import-resolver-babel-module": "^5.3.1",
 		"eslint-plugin-simple-import-sort": "^8.0.0",
