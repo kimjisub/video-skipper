@@ -4,55 +4,60 @@
 
 ## 시스템 요구사항
 
-[nodejs](https://nodejs.org/), [FFmpeg](https://www.ffmpeg.org/)
-
-두 프로그램이 설치되어있지 않으면 프로그램의 작동을 보장할 수 없습니다.
+- [FFmpeg](https://www.ffmpeg.org/)
 
 ## 사용법
 
-```
-node index -i input.mp4 -o output.mp4 -db "-50"
+```bash
+npx compress-video-by-volume -i input.mp4 -o output.mp4 -db "-50"
 ```
 
 ```
-usage: index [-h] [-v] [-i PATH] [-o PATH] [-c CHUNK_SIZE] [-s SOUNDED_SPEED] [-ns SILENT_SPEED] [-db STANDARD_dB] [-vrr RANGE] [-srr RANGE] [-vrm METHOD] [-srm METHOD] [-d DEBUG]
+usage: compress-video-by-volume [-h] -i INPUT [-o OUTPUT] [-db STANDARD_dB] [-std STANDARD]
+           [-srr RANGE] [-srm METHOD] [-d DEBUG]
 
-Cut Video by Silence
+Video Smart Skipper
 
-Optional arguments:
-  -h, --help        Show this help message and exit.
-  -v, --version     Show program's version number and exit.
-  -i PATH           Input file. (Default: input.mp4)
-  -o PATH           Output file. (Default: output.mp4)
-  -c CHUNK_SIZE     Sound chunk size in sec. (Default: sec of 1 frame)
-  -s SOUNDED_SPEED  Set sounded part speed. (Default: 1)
-  -ns SILENT_SPEED  Set silent part speed. (Default: Inf)
-  -db STANDARD_dB   Set standard dB for recognition. (Default: -50)
-  -vrr RANGE        Set volume round range in chunk. (Default: 3)
-  -srr RANGE        Set sounded round range in chunk. (Default: 10)
-  -vrm METHOD       Set volume round method. (Default: 3)
-  -srm METHOD       Set sounded round method. (Default: 1)
-  -d DEBUG          Show Debug web page. (Default: true)
+optional arguments:
+  -h, --help            show this help message and exit
+  -i INPUT, --input INPUT
+                        Input file.
+  -o OUTPUT, --output OUTPUT
+                        Output file. (Default: output.mp4)
+  -db STANDARD_dB, --standard_db STANDARD_dB
+                        Set standard dB for recognition. (Default: avg)
+  -std STANDARD, --standard STANDARD
+                        Set standard dB for recognition. (Default: -50)
+  -srr RANGE, --sounded-round-range RANGE
+                        Set sounded round range in chunk. (Default: 10)
+  -srm METHOD, --sounded-round-method METHOD
+                        Set sounded round method. (Default: 1)
+  -d DEBUG, --debug DEBUG
+                        Show Debug web page. (Default: true)
 ```
 
 ## 작동 방식
 
-### 1. Extract Sound by Chunk
+### 1. 비디오의 볼륨 분석
 
-영상으로부터 사운드 파일을 `CHUNK_SIZE` 간격으로 추출합니다. `workspace/sounds/` 에 저장됩니다.
+영상의 사운드를 0.1s 단위로 잘라서 볼륨을 가져오고, 이를 기준으로 음성이 있는 구간을 인식합니다.
 
-### 2. Get Volume of Each Chunk
+### 2. 기준 볼륨 수준 설정
 
-각 사운드 청크로부터 소리 볼륨을 가져옵니다. 이 작업은 캐싱이 되며, 같은 영상을 2번 이상 처리하게 되면 속도가 향상됩니다.
+전체 영상의 평균 볼륨 값을 사용하며, 사용자가 `-db` 파라미터로 직접 지정할 수도 있습니다.
 
-### 3. Reformat Video (mp4, keyframe)
+### 3. 기준 볼륨에 따라 볼륨 이진화
 
-비디오파일을 편집하기 위한 상태로 변경합니다. mp4포멧으로 키프레임 1로 변환합니다. `workspace/keyedited.mp4` 에 저장됩니다.
+이진화된 볼륨은 기준 볼륨보다 크면 1, 작거나 같으면 0으로 표시됩니다.
 
-### 4. Split and Speeding Videos
+### 4. 이진화된 볼륨을 라운딩합니다.
 
-영상을 기준에 맞게 자르고, 속도를 조정합니다. `workspace/videos/` 에 저장됩니다.
+이진화된 볼륨을 라운딩하여 너무 자주 끊기지 않도록 보정합니다.
 
-### 5. Merge All Part to One Video
+### 5. 라운딩했던 값을 다시 이진화하여 최종 작업 생성
 
-잘려진 영상을 하나의 비디오로 병합합니다. `OUTPUT` 에 저장됩니다.
+라운딩된 이진화 볼륨을 사용자가 설정한 기준으로 최종 편집 포인트를 생성합니다.
+
+### 6. 컷 편집 진행
+
+소리가 없는 구간을 제거하여 비디오를 편집하고 결과 파일을 출력합니다.
