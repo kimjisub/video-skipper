@@ -26,6 +26,7 @@ jobs:
         run: yarn build
 
       - name: Publish to NPM
-        run: yarn publish
+        run: yarn publish --non-interactive
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          YARN_REGISTRY: 'https://registry.npmjs.org'
