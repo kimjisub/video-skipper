@@ -86,4 +86,16 @@ parser.add_argument('-d', '--debug', {
 	default: true,
 });
 
-export const parseArgs = () => parser.parse_args();
+export const parseArgs = (): {
+	input: string;
+	output: string;
+	chunk_size: number;
+	sounded_speed: number;
+	silent_speed: number;
+	standard_db: number;
+	volume_round_range: number;
+	volume_round_method: number;
+	sounded_round_range: number;
+	sounded_round_method: number;
+	debug: boolean;
+} => parser.parse_args();
