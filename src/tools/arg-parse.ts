@@ -7,8 +7,9 @@ const parser = new ArgumentParser({
 parser.add_argument('-i', '--input', {
 	type: String,
 	dest: 'input',
+	required: true,
 	metavar: 'INPUT',
-	help: 'Input file. (Default: input.mp4)',
+	help: 'Input file.',
 	default: 'input.mp4',
 });
 
@@ -20,36 +21,20 @@ parser.add_argument('-o', '--output', {
 	default: 'output.mp4',
 });
 
-parser.add_argument('-s', '--sounded_speed', {
-	type: Number,
-	dest: 'sounded_speed',
-	metavar: 'SOUNDED_SPEED',
-	help: 'Set sounded part speed. (Default: 1)',
-	default: 1,
-});
-
-parser.add_argument('-ns', '--silent_speed', {
-	type: Number,
-	dest: 'silent_speed',
-	metavar: 'SILENT_SPEED',
-	help: 'Set silent part speed. (Default: Inf)',
-	default: Infinity,
-});
-
 parser.add_argument('-db', '--standard_db', {
 	type: Number,
-	dest: 'standard_db',
+	dest: 'stdDb',
 	metavar: 'STANDARD_dB',
-	help: 'Set standard dB for recognition. (Default: -50)',
-	default: -50,
+	help: 'Set standard dB for recognition. (Default: avg)',
+	default: NaN,
 });
 
-parser.add_argument('-vrr', '--volume-round-range', {
+parser.add_argument('-std', '--standard', {
 	type: Number,
-	dest: 'volume_round_range',
-	metavar: 'RANGE',
-	help: 'Set volume round range in chunk. (Default: 3)',
-	default: 3,
+	dest: 'stdQuantized',
+	metavar: 'STANDARD',
+	help: 'Set standard dB for recognition. (Default: -50)',
+	default: 0.3,
 });
 
 parser.add_argument('-srr', '--sounded-round-range', {
@@ -58,15 +43,6 @@ parser.add_argument('-srr', '--sounded-round-range', {
 	metavar: 'RANGE',
 	help: 'Set sounded round range in chunk. (Default: 10)',
 	default: 10,
-});
-
-parser.add_argument('-vrm', '--volume-round-method', {
-	type: Number,
-	dest: 'volume_round_method',
-	metavar: 'METHOD',
-	help: 'Set volume round method. (Default: 3)',
-	default: 3,
-	choices: ['0', '1', '2', '3'],
 });
 
 parser.add_argument('-srm', '--sounded-round-method', {
@@ -89,12 +65,9 @@ parser.add_argument('-d', '--debug', {
 export const parseArgs = (): {
 	input: string;
 	output: string;
-	chunk_size: number;
-	sounded_speed: number;
-	silent_speed: number;
-	standard_db: number;
-	volume_round_range: number;
-	volume_round_method: number;
+	stdDb: number;
+	stdQuantized: number;
+
 	sounded_round_range: number;
 	sounded_round_method: number;
 	debug: boolean;

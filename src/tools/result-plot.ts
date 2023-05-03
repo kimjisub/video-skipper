@@ -2,11 +2,11 @@ import { Layout, Plot, PlotData, plot } from 'nodeplotlib';
 
 class ResultPlot {
 	private volumeData: number[] = [];
-	private roundedVolumeData: number[] = [];
 	private soundedData: number[] = [];
 	private roundingSoundedData: number[] = [];
 	private roundedSoundedData: number[] = [];
 	private standardDbLevel = 0;
+	private standardLevel = 0;
 	private optionString = '보고서<br>';
 
 	private volumeRoundingMethod: (x: number) => number = () => 1;
@@ -57,17 +57,18 @@ class ResultPlot {
 			{
 				type: 'scatter',
 				mode: 'lines',
-				name: 'Rounded Volume',
-				y: this.roundedVolumeData,
+				name: 'Standard dB',
+				x: [0, this.soundedData.length],
+				y: [this.standardDbLevel, this.standardDbLevel],
 				xaxis: 'x',
 				yaxis: 'y3',
 			},
 			{
 				type: 'scatter',
 				mode: 'lines',
-				name: 'Standard dB',
+				name: 'Standard',
 				x: [0, this.soundedData.length],
-				y: [this.standardDbLevel, this.standardDbLevel],
+				y: [this.standardLevel, this.standardLevel],
 				xaxis: 'x',
 				yaxis: 'y3',
 			},
@@ -210,10 +211,6 @@ class ResultPlot {
 		this.volumeData = data;
 	}
 
-	public addRoundedVolumeData(data: number[]): void {
-		this.roundedVolumeData = data;
-	}
-
 	public addSoundedData(data: number[]): void {
 		this.soundedData = data;
 	}
@@ -228,6 +225,10 @@ class ResultPlot {
 
 	public setStandardDbLevel(data: number): void {
 		this.standardDbLevel = data;
+	}
+
+	public setStandardLevel(data: number): void {
+		this.standardLevel = data;
 	}
 
 	public appendOptionString(data: string): void {

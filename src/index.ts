@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { plot } from 'nodeplotlib';
 import getVolumes from './ffmpeg/volume';
 import ResultPlot from './tools/result-plot';
@@ -5,8 +7,12 @@ import { parseArgs } from './tools/arg-parse';
 import { ensureDirSync, remove, removeSync } from 'fs-extra';
 import { average } from './tools/math';
 import { optFuncs, roundList } from './tools/optimize';
+import keyframeRemap from './ffmpeg/keyframe-remap';
+import split from './ffmpeg/split';
+import removeBetween from './ffmpeg/removeBetween';
 
 const args = parseArgs();
+const CHUNK_SIZE = 0.1;
 
 start();
 
@@ -25,38 +31,96 @@ async function start() {
 
 	plot.addVolumeData(volumes);
 
-	const standard_db = args.standard_db || average(volumes);
+	const standard_db = args.stdDb || average(volumes);
 	plot.setStandardDbLevel(standard_db);
+	plot.setStandardLevel(args.stdQuantized);
 
 	// 볼륨을 라운딩합니다.
-	const roundedVolumes = roundList(
-		volumes,
-		args.volume_round_range,
-		optFuncs[args.volume_round_method]
-	);
-	plot.addRoundedVolumeData(roundedVolumes);
+	// const roundedVolumes = roundList(
+	// 	volumes,
+	// 	args.volume_round_range,
+	// 	optFuncs[args.volume_round_method]
+	// );
+	// plot.addRoundedVolumeData(roundedVolumes);
 
 	// 기준 값으로 볼륨을 이진화합니다.
-	const quantizedVolume: number[] = [];
-	for (const i in roundedVolumes)
-		quantizedVolume[i] = roundedVolumes[i] > standard_db ? 1 : 0;
-	plot.addSoundedData(quantizedVolume);
+	const quantizedValue: number[] = [];
+	for (const i in volumes) quantizedValue[i] = volumes[i] > standard_db ? 1 : 0;
+	plot.addSoundedData(quantizedValue);
 
 	// 이진화된 볼륨을 다시 라운딩합니다.
-	const roundedQuantizedVolume = roundList(
-		quantizedVolume,
+	const roundedQuantized = roundList(
+		quantizedValue,
 		args.sounded_round_range,
 		optFuncs[args.sounded_round_method]
 	);
-	plot.addRoundedSoundedData(roundedQuantizedVolume);
+	plot.addRoundingSoundedData(roundedQuantized);
 
 	// 라운딩한 볼륨을 다시 이진화하여 최종 결과물에 반영합니다.
-	const result = roundedQuantizedVolume.map((data) => data > 0.5);
-	plot.addRoundedSoundedData(result.map((data) => (data ? 1 : 0)));
+	const result = roundedQuantized.map((data) =>
+		data > args.stdQuantized ? 1 : 0
+	);
+	plot.addRoundedSoundedData(result);
 
 	plot.showGraph();
 
-	console.log(volumes, volumes.length);
+	const editWorkList = [];
+	//{start: 0, end: 1.4, sounded: true}
+	let prevSounded = !result[0];
+	let prevSec = 0;
+	for (const _i in result) {
+		const i = Number(_i);
+		const sounded = result[i];
+		const sec = i * CHUNK_SIZE;
 
-	console.log('1. Analyzing Volume of Video');
+		if (!!sounded != prevSounded || result.length - 1 == i) {
+			editWorkList.push({
+				start: prevSec,
+				end: sec,
+				sounded: prevSounded,
+			});
+
+			prevSounded = !!sounded;
+			prevSec = sec;
+		}
+	}
+	editWorkList.shift();
+	console.log('total work:', editWorkList.length);
+	console.log(
+		'total time:',
+		editWorkList.reduce((a, b) => a + b.end - b.start, 0)
+	);
+	console.log(
+		'reduced time:',
+		editWorkList.reduce((a, b) => a + (!b.sounded ? b.end - b.start : 0), 0)
+	);
+
+	await removeBetween(
+		args.input,
+		args.output,
+		editWorkList.filter((work) => !work.sounded)
+	);
+
+	// console.log('2. Remapping Keyframes');
+
+	// await keyframeRemap(args.input);
+
+	// console.log('3. Splitting Video');
+
+	// for (const i in editWorkList) {
+	// 	const editWork = editWorkList[i];
+	// 	const soundSpeed = editWork.sounded
+	// 		? args.sounded_speed
+	// 		: args.silent_speed;
+	// 	const videoSpeed = 1 / soundSpeed;
+	// 	const t = (editWork.end - editWork.start) * videoSpeed;
+	// 	if (soundSpeed != Infinity)
+	// 		await split(
+	// 			'workspace/keyedited.mp4',
+	// 			`workspace/videos/${String(i).padStart(5, '0')}.mp4`,
+	// 			editWork.start,
+	// 			editWork.end,
+	// 			soundSpeed
+	// 		);
+	// }
 }
