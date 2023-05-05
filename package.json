@@ -1,8 +1,8 @@
 {
-	"name": "video-smart-skipper",
+	"name": "compress-video-by-volume",
 	"version": "1.0.0",
 	"main": "dist/index.js",
-	"repository": "https://github.com/kimjisub/video-smart-skipper.git",
+	"repository": "https://github.com/kimjisub/compress-video-by-volume.git",
 	"author": "kimjisub <0226daniel@gmail.com>",
 	"license": "Apache",
 	"scripts": {
@@ -10,7 +10,7 @@
 		"build": "tsc"
 	},
 	"bin": {
-		"vss": "./dist/index.js"
+		"compress-video-by-volume": "./dist/index.js"
 	},
 	"dependencies": {
 		"@nestjs/common": "^8.0.0",
