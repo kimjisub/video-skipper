@@ -1,6 +1,6 @@
 # video-skip-silent
 
-소리의 크기를 이용하여 동영상을 편집하는 프로그램은 오디오 신호를 분석하여 음성이 없는 구간을 자동으로 인식하고 잘라내어 동영상을 편집해주는 도구입니다.
+`video-skip-silent`은 오디오 신호를 분석하여 음성이 없는 구간을 자동으로 인식하고 잘라내어 동영상을 편집해주는 도구입니다.
 
 ## 시스템 요구사항
 
@@ -12,7 +12,7 @@
 npx video-skip-silent -i input.mp4 -o output.mp4 -db "-50"
 ```
 
-```
+```text
 usage: video-skip-silent [-h] -i INPUT [-o OUTPUT] [-db STANDARD_dB] [-std STANDARD]
            [-srr RANGE] [-srm METHOD] [-d DEBUG]
 
@@ -48,9 +48,9 @@ optional arguments:
 
 ### 3. 기준 볼륨에 따라 볼륨 이진화
 
-이진화된 볼륨은 기준 볼륨보다 크면 1, 작거나 같으면 0으로 표시됩니다.
+이진화된 볼륨은 기준 볼륨보다 크면 1, 작거나 같으면 0으로 이진화합니다.
 
-### 4. 이진화된 볼륨을 라운딩합니다.
+### 4. 이진화된 볼륨 라운딩
 
 이진화된 볼륨을 라운딩하여 너무 자주 끊기지 않도록 보정합니다.
 
