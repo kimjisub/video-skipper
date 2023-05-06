@@ -1,6 +1,6 @@
 {
 	"name": "video-skip-silent",
-	"version": "1.0.2",
+	"version": "1.0.0",
 	"main": "dist/index.js",
 	"repository": "https://github.com/kimjisub/video-skip-silent.git",
 	"author": "kimjisub <0226daniel@gmail.com>",
