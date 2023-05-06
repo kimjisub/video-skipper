@@ -1,4 +1,4 @@
-# compress-video-by-volume
+# video-skip-silent
 
 소리의 크기를 이용하여 동영상을 편집하는 프로그램은 오디오 신호를 분석하여 음성이 없는 구간을 자동으로 인식하고 잘라내어 동영상을 편집해주는 도구입니다.
 
@@ -9,14 +9,14 @@
 ## 사용법
 
 ```bash
-npx compress-video-by-volume -i input.mp4 -o output.mp4 -db "-50"
+npx video-skip-silent -i input.mp4 -o output.mp4 -db "-50"
 ```
 
 ```
-usage: compress-video-by-volume [-h] -i INPUT [-o OUTPUT] [-db STANDARD_dB] [-std STANDARD]
+usage: video-skip-silent [-h] -i INPUT [-o OUTPUT] [-db STANDARD_dB] [-std STANDARD]
            [-srr RANGE] [-srm METHOD] [-d DEBUG]
 
-Video Smart Skipper
+Skip Silent from Video
 
 optional arguments:
   -h, --help            show this help message and exit

@@ -1,7 +1,7 @@
 import { ArgumentParser } from 'argparse';
 
 const parser = new ArgumentParser({
-	description: 'Video Smart Skipper',
+	description: 'Skip Silent from Video',
 });
 
 parser.add_argument('-i', '--input', {
