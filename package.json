@@ -1,8 +1,8 @@
 {
-	"name": "video-skip-silent",
+	"name": "video-skipper",
 	"version": "1.0.0",
 	"main": "dist/index.js",
-	"repository": "https://github.com/kimjisub/video-skip-silent.git",
+	"repository": "https://github.com/kimjisub/video-skipper.git",
 	"author": "kimjisub <0226daniel@gmail.com>",
 	"license": "Apache",
 	"scripts": {
@@ -10,7 +10,7 @@
 		"build": "tsc"
 	},
 	"bin": {
-		"video-skip-silent": "./dist/index.js"
+		"video-skipper": "./dist/index.js"
 	},
 	"dependencies": {
 		"@nestjs/common": "^8.0.0",
