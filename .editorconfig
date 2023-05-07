@@ -1,3 +1,3 @@
 [*.{js,jsx,ts,tsx,java}]
-index_style = tab
-index_size = 4
+indent_style = tab
+indent_size = 4
