@@ -33,7 +33,7 @@ optional arguments:
   -srm METHOD, --sounded-round-method METHOD
                         Set sounded round method. (Default: 1)
   -d DEBUG, --debug DEBUG
-                        Show Debug web page. (Default: true)
+                        Show Debug web page. (Default: false)
 ```
 
 ## 작동 방식

@@ -59,7 +59,7 @@ parser.add_argument('-d', '--debug', {
 	dest: 'debug',
 	metavar: 'DEBUG',
 	help: 'Show Debug web page. (Default: true)',
-	default: true,
+	default: false,
 });
 
 export const parseArgs = (): {
