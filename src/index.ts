@@ -1,17 +1,12 @@
-#!/usr/bin/env node
-
-import { plot } from 'nodeplotlib';
-import getVolumes from './ffmpeg/volume';
 import ResultPlot from './tools/result-plot';
 import { parseArgs } from './tools/arg-parse';
-import { ensureDirSync, remove, removeSync } from 'fs-extra';
 import { average } from './tools/math';
 import { optFuncs, roundList } from './tools/optimize';
-import keyframeRemap from './ffmpeg/keyframe-remap';
-import split from './ffmpeg/split';
-import removeBetween from './ffmpeg/removeBetween';
+import removeBetween from './ffmpeg/processor/removeBetween';
+import getVolumes from './ffmpeg/processor/volume';
 
 const args = parseArgs();
+
 const CHUNK_SIZE = 0.1;
 
 start();
