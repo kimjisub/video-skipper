@@ -1,17 +1,12 @@
-#!/usr/bin/env node
-
-import { plot } from 'nodeplotlib';
-import getVolumes from './ffmpeg/volume';
 import ResultPlot from './tools/result-plot';
 import { parseArgs } from './tools/arg-parse';
-import { ensureDirSync, remove, removeSync } from 'fs-extra';
 import { average } from './tools/math';
 import { optFuncs, roundList } from './tools/optimize';
-import keyframeRemap from './ffmpeg/keyframe-remap';
-import split from './ffmpeg/split';
-import removeBetween from './ffmpeg/removeBetween';
+import { getVolumes, removeBetween } from './ffmpeg';
+import progress from 'progress';
 
 const args = parseArgs();
+
 const CHUNK_SIZE = 0.1;
 
 start();
@@ -19,7 +14,26 @@ start();
 async function start() {
 	console.log('1. Analyzing Volume of Video');
 
-	const volumes = await getVolumes(args.input);
+	const progress1 = new progress('[:bar] :percent :current/:total :elapsed', {
+		complete: '=',
+		incomplete: ' ',
+		width: 40,
+		total: 0,
+	});
+	const volumes = await getVolumes(
+		{
+			input: args.input,
+			progress: (progress, curr, total) => {
+				progress1.total = total;
+				progress1.curr = parseFloat(curr.toFixed(1));
+				progress1.tick();
+			},
+		},
+		args.engine,
+	);
+	progress1.terminate();
+
+	console.log('volumes', volumes);
 
 	const plot = new ResultPlot();
 
@@ -57,7 +71,7 @@ async function start() {
 	);
 	plot.addRoundedSoundedData(result);
 
-	plot.showGraph();
+	if (args.debug) plot.showGraph();
 
 	const editWorkList = [];
 	//{start: 0, end: 1.4, sounded: true}
@@ -93,11 +107,27 @@ async function start() {
 		),
 	);
 
+	const progress2 = new progress('[:bar] :percent :current/:total :elapsed', {
+		complete: '=',
+		incomplete: ' ',
+		width: 40,
+		total: 0,
+	});
 	await removeBetween(
-		args.input,
-		args.output,
-		editWorkList.filter(work => !work.sounded),
+		{
+			input: args.input,
+			output: args.output,
+			times: editWorkList.filter(work => !work.sounded),
+			progress: (progress, curr, total) => {
+				progress2.total = total;
+				progress2.curr = parseFloat(curr.toFixed(1));
+				progress2.tick();
+			},
+		},
+		args.engine,
 	);
+
+	progress2.terminate();
 
 	// console.log('2. Remapping Keyframes');
 

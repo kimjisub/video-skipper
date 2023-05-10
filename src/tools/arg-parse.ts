@@ -21,6 +21,15 @@ parser.add_argument('-o', '--output', {
 	default: 'output.mp4',
 });
 
+parser.add_argument('-e', '--engine', {
+	type: Number,
+	dest: 'engine',
+	metavar: 'ENGINE',
+	help: 'FFMPEG engine (Default: wasm)',
+	default: 'wasm',
+	choices: ['wasm', 'process'],
+});
+
 parser.add_argument('-db', '--standard_db', {
 	type: Number,
 	dest: 'stdDb',
@@ -65,6 +74,7 @@ parser.add_argument('-d', '--debug', {
 export const parseArgs = (): {
 	input: string;
 	output: string;
+	engine: 'wasm' | 'process';
 	stdDb: number;
 	stdQuantized: number;
 

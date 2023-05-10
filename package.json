@@ -1,43 +1,52 @@
 {
-	"name": "video-skipper",
-	"version": "1.0.3",
-	"main": "dist/index.js",
-	"repository": "https://github.com/kimjisub/video-skipper.git",
-	"author": "kimjisub <0226daniel@gmail.com>",
-	"license": "Apache",
-	"scripts": {
-		"start": "ts-node ./src/index.ts",
-		"build": "tsc"
-	},
-	"bin": {
-		"video-skipper": "./dist/index.js"
-	},
-	"files": [
-		"dist"
-	],
-	"dependencies": {
-		"@nestjs/common": "^8.0.0",
-		"@nestjs/core": "^8.0.0",
-		"@nestjs/serve-static": "^2.2.2",
-		"@nestjs/websockets": "^8.2.3",
-		"@types/argparse": "^2.0.10",
-		"@types/fs-extra": "^11.0.1",
-		"argparse": "^2.0.1",
-		"fs-extra": "^11.1.1",
-		"nodeplotlib": "^1.1.2",
-		"reflect-metadata": "^0.1.13",
-		"rxjs": "^7.4.0",
-		"tslib": "^2.0.0"
-	},
-	"devDependencies": {
-		"@types/node": "^16.3.0",
-		"@typescript-eslint/eslint-plugin": "^5.57.1",
-		"@typescript-eslint/parser": "^5.57.1",
-		"eslint": "^8.26.0",
-		"eslint-import-resolver-babel-module": "^5.3.1",
-		"eslint-plugin-simple-import-sort": "^8.0.0",
-		"eslint-plugin-unused-imports": "^2.0.0",
-		"ts-node": "^10.9.1",
-		"typescript": "^5.0.4"
-	}
+  "name": "video-skipper",
+  "version": "1.0.3",
+  "main": "dist/index.js",
+  "repository": "https://github.com/kimjisub/video-skipper.git",
+  "author": "kimjisub <0226daniel@gmail.com>",
+  "license": "Apache",
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "build": "tsc",
+    "run": "node --experimental-wasm-modules ./dist/index.js"
+  },
+  "bin": {
+    "video-skipper": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": "<=16.17.0"
+  },
+  "dependencies": {
+    "@ffmpeg/core": "^0.11.0",
+    "@ffmpeg/ffmpeg": "^0.11.6",
+    "@nestjs/common": "^8.0.0",
+    "@nestjs/core": "^8.0.0",
+    "@nestjs/serve-static": "^2.2.2",
+    "@nestjs/websockets": "^8.2.3",
+    "@types/argparse": "^2.0.10",
+    "@types/fs-extra": "^11.0.1",
+    "argparse": "^2.0.1",
+    "fs-extra": "^11.1.1",
+    "nodeplotlib": "^1.1.2",
+    "progress": "^2.0.3",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.4.0",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.3.0",
+    "@types/progress": "^2.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.26.0",
+    "eslint-import-resolver-babel-module": "^5.3.1",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "regenerator-runtime": "^0.13.11",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
 }
