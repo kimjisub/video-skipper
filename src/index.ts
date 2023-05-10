@@ -17,12 +17,6 @@ const CHUNK_SIZE = 0.1;
 start();
 
 async function start() {
-	// 작업 폴더 초기화
-	remove('workspace').finally(() => {
-		ensureDirSync('workspace');
-		ensureDirSync('workspace/videos');
-	});
-
 	console.log('1. Analyzing Volume of Video');
 
 	const volumes = await getVolumes(args.input);
@@ -45,20 +39,21 @@ async function start() {
 
 	// 기준 값으로 볼륨을 이진화합니다.
 	const quantizedValue: number[] = [];
-	for (const i in volumes) quantizedValue[i] = volumes[i] > standard_db ? 1 : 0;
+	for (const i in volumes)
+		quantizedValue[i] = volumes[i] > standard_db ? 1 : 0;
 	plot.addSoundedData(quantizedValue);
 
 	// 이진화된 볼륨을 다시 라운딩합니다.
 	const roundedQuantized = roundList(
 		quantizedValue,
 		args.sounded_round_range,
-		optFuncs[args.sounded_round_method]
+		optFuncs[args.sounded_round_method],
 	);
 	plot.addRoundingSoundedData(roundedQuantized);
 
 	// 라운딩한 볼륨을 다시 이진화하여 최종 결과물에 반영합니다.
-	const result = roundedQuantized.map((data) =>
-		data > args.stdQuantized ? 1 : 0
+	const result = roundedQuantized.map(data =>
+		data > args.stdQuantized ? 1 : 0,
 	);
 	plot.addRoundedSoundedData(result);
 
@@ -88,17 +83,20 @@ async function start() {
 	console.log('total work:', editWorkList.length);
 	console.log(
 		'total time:',
-		editWorkList.reduce((a, b) => a + b.end - b.start, 0)
+		editWorkList.reduce((a, b) => a + b.end - b.start, 0),
 	);
 	console.log(
 		'reduced time:',
-		editWorkList.reduce((a, b) => a + (!b.sounded ? b.end - b.start : 0), 0)
+		editWorkList.reduce(
+			(a, b) => a + (!b.sounded ? b.end - b.start : 0),
+			0,
+		),
 	);
 
 	await removeBetween(
 		args.input,
 		args.output,
-		editWorkList.filter((work) => !work.sounded)
+		editWorkList.filter(work => !work.sounded),
 	);
 
 	// console.log('2. Remapping Keyframes');
