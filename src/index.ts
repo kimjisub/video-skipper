@@ -43,14 +43,6 @@ async function start() {
 	plot.setStandardDbLevel(standard_db);
 	plot.setStandardLevel(args.stdQuantized);
 
-	// 볼륨을 라운딩합니다.
-	// const roundedVolumes = roundList(
-	// 	volumes,
-	// 	args.volume_round_range,
-	// 	optFuncs[args.volume_round_method]
-	// );
-	// plot.addRoundedVolumeData(roundedVolumes);
-
 	// 기준 값으로 볼륨을 이진화합니다.
 	const quantizedValue: number[] = [];
 	for (const i in volumes)
@@ -128,27 +120,4 @@ async function start() {
 	);
 
 	progress2.terminate();
-
-	// console.log('2. Remapping Keyframes');
-
-	// await keyframeRemap(args.input);
-
-	// console.log('3. Splitting Video');
-
-	// for (const i in editWorkList) {
-	// 	const editWork = editWorkList[i];
-	// 	const soundSpeed = editWork.sounded
-	// 		? args.sounded_speed
-	// 		: args.silent_speed;
-	// 	const videoSpeed = 1 / soundSpeed;
-	// 	const t = (editWork.end - editWork.start) * videoSpeed;
-	// 	if (soundSpeed != Infinity)
-	// 		await split(
-	// 			'workspace/keyedited.mp4',
-	// 			`workspace/videos/${String(i).padStart(5, '0')}.mp4`,
-	// 			editWork.start,
-	// 			editWork.end,
-	// 			soundSpeed
-	// 		);
-	// }
 }
