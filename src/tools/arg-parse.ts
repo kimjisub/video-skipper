@@ -22,7 +22,7 @@ parser.add_argument('-o', '--output', {
 });
 
 parser.add_argument('-e', '--engine', {
-	type: Number,
+	type: String,
 	dest: 'engine',
 	metavar: 'ENGINE',
 	help: 'FFMPEG engine (Default: wasm)',
