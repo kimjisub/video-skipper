@@ -1,5 +1,3 @@
-##### 영문
-
 # video-skipper
 
 `video-skipper` is a tool that analyzes audio signals to automatically recognize and cut audio-free sections and edit videos.
