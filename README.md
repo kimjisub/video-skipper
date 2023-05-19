@@ -1,12 +1,12 @@
 # video-skipper
 
-`video-skipper`은 오디오 신호를 분석하여 음성이 없는 구간을 자동으로 인식하고 잘라내어 동영상을 편집해주는 도구입니다.
+`video-skipper` is a tool that analyzes audio signals to automatically recognize and cut audio-free sections and edit videos.
 
-## 시스템 요구사항
+## System Requirements
 
 - [FFmpeg](https://www.ffmpeg.org/)
 
-## 사용법
+## How to use
 
 ```bash
 npx video-skipper -i input.mp4 -o output.mp4 -db "-50"
@@ -36,28 +36,28 @@ optional arguments:
                         Show Debug web page. (Default: false)
 ```
 
-## 작동 방식
+## How it works
 
-### 1. 비디오의 볼륨 분석
+### 1. Volume Analysis of Video
 
-영상의 사운드를 0.1s 단위로 잘라서 볼륨을 가져오고, 이를 기준으로 음성이 있는 구간을 인식합니다.
+The sound of the image is cut in 0.1s to obtain volume, and based on this, the interval with voice is recognized.
 
-### 2. 기준 볼륨 수준 설정
+### 2. Setting the Reference Volume Level
 
-전체 영상의 평균 볼륨 값을 사용하며, 사용자가 `-db` 파라미터로 직접 지정할 수도 있습니다.
+It uses the average volume value of the entire image and can also be specified directly by the user with the `-db` parameter.
 
-### 3. 기준 볼륨에 따라 볼륨 이진화
+### 3. Binary volume according to reference volume
 
-이진화된 볼륨은 기준 볼륨보다 크면 1, 작거나 같으면 0으로 이진화합니다.
+Binary volumes are binarized to 1 if they are larger than the reference volume and 0 if they are smaller or equal.
 
-### 4. 이진화된 볼륨 라운딩
+### 4. Binaryized volume rounding
 
-이진화된 볼륨을 라운딩하여 너무 자주 끊기지 않도록 보정합니다.
+Round the binarized volume to calibrate it so that it doesn't break too often.
 
-### 5. 라운딩했던 값을 다시 이진화하여 최종 작업 생성
+### 5. Re-binary the rounded value to create the final job
 
-라운딩된 이진화 볼륨을 사용자가 설정한 기준으로 최종 편집 포인트를 생성합니다.
+Creates the final edit point based on the user-set criteria for rounded binary volumes.
 
-### 6. 컷 편집 진행
+### 6. Cut Edit Progress
 
-소리가 없는 구간을 제거하여 비디오를 편집하고 결과 파일을 출력합니다.
+Edit the video and output the result file by removing the silent interval.
