@@ -25,10 +25,6 @@ const getVolumes = async ({
 		const volume = volumeString ? parseFloat(volumeString) : null;
 		const time = timeString ? parseFloat(timeString) : null;
 		if (volume !== null && time !== null) {
-			console.log(
-				`time: ${time.toFixed(2)}s, volume: ${volume.toFixed(2)}dB`,
-			);
-
 			progress?.(time / duration, time, duration);
 
 			volumes.push(volume);
