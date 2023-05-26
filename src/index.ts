@@ -31,14 +31,13 @@ async function start() {
 		},
 		args.engine,
 	);
-	progress1.terminate();
 
 	console.log('volumes', volumes);
 
 	const plot = new ResultPlot();
 
 	plot.addVolumeData(volumes);
-
+	``;
 	const standard_db = args.stdDb || average(volumes);
 	plot.setStandardDbLevel(standard_db);
 	plot.setStandardLevel(args.stdQuantized);
