@@ -1,6 +1,6 @@
 # video-skipper
 
-`video-skipper` is a tool that analyzes audio signals to automatically recognize and cut audio-free sections and edit videos.
+`video-skipper` is an open-source tool that analyzes audio signals to automatically recognize and cut audio-free sections, hence editing videos. This tool is powered by [FFmpeg](https://www.ffmpeg.org/). It's ideal for individuals who want to cut out silent portions in a video seamlessly.
 
 ## System Requirements
 
@@ -44,7 +44,7 @@ The sound of the image is cut in 0.1s to obtain volume, and based on this, the i
 
 ### 2. Setting the Reference Volume Level
 
-It uses the average volume value of the entire image and can also be specified directly by the user with the `-db` parameter.
+It uses the average volume value of the entire image and can also be specified directly by the user with the -db parameter.
 
 ### 3. Binary volume according to reference volume
 
@@ -61,3 +61,7 @@ Creates the final edit point based on the user-set criteria for rounded binary v
 ### 6. Cut Edit Progress
 
 Edit the video and output the result file by removing the silent interval.
+
+## License
+
+This project is licensed under the terms of the Apache License 2.0.
