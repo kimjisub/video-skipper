@@ -14,7 +14,7 @@ start();
 async function start() {
 	console.log('1. Analyzing Volume of Video');
 
-	const progress1 = new progress('[:bar] :percent :current/:total :elapsed', {
+	const progress1 = new progress('[:bar] :percent :current/:total', {
 		complete: '=',
 		incomplete: ' ',
 		width: 40,
@@ -99,7 +99,7 @@ async function start() {
 		),
 	);
 
-	const progress2 = new progress('[:bar] :percent :current/:total :elapsed', {
+	const progress2 = new progress('[:bar] :percent :current/:total', {
 		complete: '=',
 		incomplete: ' ',
 		width: 40,
