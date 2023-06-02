@@ -4,7 +4,14 @@
 
 ## 시스템 요구사항
 
+### `-e process` 를 사용할 때
+
+- [Nodejs](https://nodejs.org/)
 - [FFmpeg](https://www.ffmpeg.org/)
+
+### `-e wasm` 를 사용할 때
+
+- [Nodejs](https://nodejs.org/) `<=16.17.0`
 
 ## 사용법
 
@@ -61,12 +68,3 @@ optional arguments:
 ### 6. 컷 편집 진행
 
 소리가 없는 구간을 제거하여 비디오를 편집하고 결과 파일을 출력합니다.
-
-### Process 사용시 요구사항
-
-FFMPEG
-Node.js(버전 테스트 필요)
-
-### WASM 사용시 요구사항
-
-Node.js(<=16.17.0)

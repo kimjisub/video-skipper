@@ -4,7 +4,14 @@
 
 ## System Requirements
 
+### If you use `-e process`
+
+- [Nodejs](https://nodejs.org/)
 - [FFmpeg](https://www.ffmpeg.org/)
+
+### If you use `-e wasm`
+
+- [Nodejs](https://nodejs.org/) `<=16.17.0`
 
 ## How to use
 
@@ -13,8 +20,8 @@ npx video-skipper -i input.mp4 -o output.mp4 -db "-50"
 ```
 
 ```text
-usage: video-skipper [-h] -i INPUT [-o OUTPUT] [-db STANDARD_dB] [-std STANDARD]
-           [-srr RANGE] [-srm METHOD] [-d DEBUG]
+usage: npx video-skipper [-h] -i INPUT [-o OUTPUT] [-e ENGINE] [-db STANDARD_dB] [-std STANDARD]
+                [-srr RANGE] [-srm METHOD] [-d DEBUG]
 
 Skip Silent from Video
 
@@ -24,6 +31,8 @@ optional arguments:
                         Input file.
   -o OUTPUT, --output OUTPUT
                         Output file. (Default: output.mp4)
+  -e ENGINE, --engine ENGINE
+                        FFMPEG engine (Default: wasm)
   -db STANDARD_dB, --standard_db STANDARD_dB
                         Set standard dB for recognition. (Default: avg)
   -std STANDARD, --standard STANDARD
@@ -33,7 +42,7 @@ optional arguments:
   -srm METHOD, --sounded-round-method METHOD
                         Set sounded round method. (Default: 1)
   -d DEBUG, --debug DEBUG
-                        Show Debug web page. (Default: false)
+                        Show Debug web page. (Default: true)
 ```
 
 ## How it works
@@ -65,12 +74,3 @@ Edit the video and output the result file by removing the silent interval.
 ## License
 
 This project is licensed under the terms of the Apache License 2.0.
-
-### Requirement fo Process engine
-
-FFMPEG
-Node.js(Version Test Required)
-
-### Requirement fo WASM engine
-
-Node.js(<=16.17.0)
