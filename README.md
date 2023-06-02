@@ -65,3 +65,12 @@ Edit the video and output the result file by removing the silent interval.
 ## License
 
 This project is licensed under the terms of the Apache License 2.0.
+
+### Requirement fo Process engine
+
+FFMPEG
+Node.js(Version Test Required)
+
+### Requirement fo WASM engine
+
+Node.js(<=16.17.0)
