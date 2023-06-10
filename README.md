@@ -45,7 +45,7 @@ optional arguments:
                         Show Debug web page. (Default: true)
 ```
 
-## How it works
+## Operating mechanism
 
 ### 1. Volume Analysis of Video
 
