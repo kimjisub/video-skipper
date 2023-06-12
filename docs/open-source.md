@@ -13,7 +13,7 @@ marp: true
 
 ## 라이센스 지정
 
----
+- 이 프로젝트는 Apache License 2.0의 조건에 따라 라이선스가 부여됩니다.
 
 ## Branch 관리 전략
 
