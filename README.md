@@ -13,7 +13,7 @@
 
 - [Nodejs](https://nodejs.org/) `<=16.17.0`
 
-## How to use
+## Instructions for uses
 
 ```bash
 npx video-skipper -i input.mp4 -o output.mp4 -db "-50"
