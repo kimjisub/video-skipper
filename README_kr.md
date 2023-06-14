@@ -8,6 +8,7 @@
 
 - [Nodejs](https://nodejs.org/)
 - [FFmpeg](https://www.ffmpeg.org/)
+
 - FFmpeg 윈도우 환경에서 다운로드시 (https://www.gyan.dev/ffmpeg/builds/)에서 ffmpeg-release-essentials.7z 파일 다운로드 필요.
 - 터미널에 FFmpeg 입력시 오류발생하면 '시스템 환경 변수 편집' 창에서 환경변수 접속, 시스템 변수에서 path에 다운받은 FFmpeg bin파일 경로 추가.
 - 터미널에 FFmpeg 입력시 오류없으면 FFmpeg 준비 완료.
