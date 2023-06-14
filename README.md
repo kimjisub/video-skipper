@@ -20,6 +20,10 @@
 
 ## Instructions for uses
 
+- First, enter npm install -g video-skipper in the terminal to install 'video-skipper' globally.
+
+- Enter FFmpeg in the terminal to check if FFmpeg is installed, and if it is not installed, follow the steps mentioned above to install it.
+
 ```bash
 npx video-skipper -i input.mp4 -o output.mp4 -db "-50"
 ```
