@@ -9,6 +9,11 @@
 - [Nodejs](https://nodejs.org/)
 - [FFmpeg](https://www.ffmpeg.org/)
 
+- Download the ffmpeg-release-essentials.7z file from https://www.gyan.dev/ffmpeg/builds/ when downloading FFmpeg for Windows.
+- If entering 'FFmpeg' in the terminal results in an error, access the environment variables through the 'Edit System Environment Variables' window, and add the path to the
+  downloaded FFmpeg bin file in the system variables.
+- If entering 'FFmpeg' in the terminal doesn't result in an error, then FFmpeg is ready to use.
+
 ### If you use `-e wasm`
 
 - [Nodejs](https://nodejs.org/) `<=16.17.0`
