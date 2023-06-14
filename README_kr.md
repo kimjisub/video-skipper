@@ -19,6 +19,8 @@
 
 ## 사용법
 
+- 터미널에 npm install -g video-skipper 입력하여 'video-skipper'를 전역으로 설치합니다.
+
 ```bash
 npx video-skipper -i input.mp4 -o output.mp4 -db "-50"
 ```
