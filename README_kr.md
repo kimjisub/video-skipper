@@ -8,6 +8,7 @@
 
 - [Nodejs](https://nodejs.org/)
 - [FFmpeg](https://www.ffmpeg.org/)
+- FFmpeg 윈도우 환경에서 다운로드시 (https://www.gyan.dev/ffmpeg/builds/)에서 ffmpeg-release-essentials.7z 파일 다운로드 필요.
 
 ### `-e wasm` 를 사용할 때
 
